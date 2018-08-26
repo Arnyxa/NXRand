@@ -2,8 +2,7 @@
 
 Small library that abstracts away C++'s random classes and makes them somewhat easier to use.
 
-The primary purpose of NXRand is to have a simple, yet effective way of utilizing the STL's PRNG, 
-without having to go through all the hassle of creating random devices, rng engines, and distribution objects.
+The primary purpose of NXRand is to have a simple, yet effective way of utilizing the STL's PRNG, without having to go through all the hassle of creating random devices, rng engines, and distribution objects.
 
 This would make it effective for things such as game programming, or smaller objects where simple RNG is all that is required.
 
