@@ -15,11 +15,12 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source.cpp">
+    <ClInclude Include="SysCheck.h">
       <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
+    </ClInclude>
+    <ClInclude Include="Incl.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
     <ClInclude Include="NXRand.h">
       <Filter>Source Files</Filter>
     </ClInclude>

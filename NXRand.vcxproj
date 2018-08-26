@@ -119,9 +119,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Source.cpp" />
-  </ItemGroup>
-  <ItemGroup>
+    <ClInclude Include="Incl.h" />
+    <ClInclude Include="SysCheck.h" />
     <ClInclude Include="NXRand.h" />
   </ItemGroup>
   <ItemGroup>
