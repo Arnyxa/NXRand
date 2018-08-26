@@ -9,7 +9,7 @@ namespace nx
 {
 	#if defined NX64
 		using Mersenne = std::mt19937_64;
-	#else
+	#elif defined NX32 || defined NXUNKNOWN
 		using Mersenne = std::mt19937;
 	#endif
 }

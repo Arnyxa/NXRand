@@ -11,21 +11,13 @@ namespace nx
 	template<typename T>
 	void Rand<T, IS_INT>::ResetRange()
 	{
-		auto myNew = mDist.param();
-		myNew._Init(static_cast<T>(0), std::numeric_limits<T>::max());
-
-		mDist.param(myNew);
+		mDist.param(std::uniform_int<T>(static_cast<T>(0), std::numeric_limits<T>::max().param());
 	}
 
 	template<typename T>
 	void Rand<T, IS_INT>::SetRange(T min, T max)
 	{
 		CheckValidity(min, max);
-
-		auto myNew = mDist.param();
-		myNew._Init(min, max);
-
-		mDist.param(myNew);
 	}
 
 	template<typename T>
