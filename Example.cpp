@@ -16,7 +16,7 @@ int main()
 	nx::Rand<long long int>::Next();      // it works with any int/float type
 
 	mySpicy.Seed(52);                     // you can specify your own seeds
-	myiRand.ResetRange();                 // resets range to 0
+	myiRand.ResetRange();                 // resets range to default (1~100)
 	myfRand.GetRange();                   // range is returned as a pair of values, accessed through pair.first/pair.second
 	mydRand.ResetState();                 // can also reset the internal state of the distribution (it stops caring what number came last)
 
