@@ -3,34 +3,25 @@ namespace nx
 #define IS_FLOAT std::enable_if_t<std::is_floating_point_v<T>>
 
 	template<typename T>
-	Rand<T, IS_FLOAT>::Rand(T min, T max) : mDist(min, max), mGen(mRand())
+	Rand<T, IS_FLOAT>::Rand(T min, T max) : mGen(mRand())
 	{
-		Check(min, max);
-
+		CheckValidity(min, max);
 	}
 
 	template<typename T>
 	void Rand<T, IS_FLOAT>::ResetRange()
 	{
-		auto myNew = mDist.param();
-		myNew._Init(static_cast<T>(0), std::numeric_limits<T>::max());
-
-		mDist.param(myNew);
+		mDist.param(std::uniform_real<T>(static_cast<T>(0), std::numeric_limits<T>::max()).param());
 	}
 
 	template<typename T>
 	void Rand<T, IS_FLOAT>::SetRange(T min, T max)
 	{
-		Check(min, max);
-
-		auto myNew = mDist.param();
-		myNew._Init(min, max);
-
-		mDist.param(myNew);
+		CheckValidity(min, max);
 	}
 
 	template<typename T>
-	void Rand<T, IS_FLOAT>::Seed(T value)
+	void Rand<T, IS_FLOAT>::Seed(uint64_t value)
 	{
 		mGen.seed(value);
 	}
@@ -56,7 +47,7 @@ namespace nx
 	template<typename T>
 	T Rand<T, IS_FLOAT>::operator()(T min, T max, bool retain)
 	{
-		Check(min, max);
+		CheckValidity(min, max);
 
 		auto myOldState = mDist.param();
 		auto myNewState = mDist.param();
@@ -79,10 +70,16 @@ namespace nx
 	}
 
 	template<typename T>
-	void Rand<T, IS_FLOAT>::Check(T min, T max)
+	void Rand<T, IS_FLOAT>::CheckValidity(T min, T max)
 	{
 		if (min > max)
-			mDist.param(std::uniform_real<T>(max, min).param());
+		{
+			T temp = min;
+			min = max;
+			max = temp;
+		}
+
+		mDist.param(std::uniform_real<T>(min, max).param());
 	}
 
 	template<typename T>
@@ -91,7 +88,7 @@ namespace nx
 		std::uniform_real_distribution<T> myDist;
 
 		std::random_device myRand;
-		static std::default_random_engine myGen(myRand());
+		static Mersenne myGen(myRand());
 
 		return myDist(myGen);
 	}
@@ -102,7 +99,7 @@ namespace nx
 		std::uniform_real_distribution<T> myDist(static_cast<T>(0), max);
 
 		std::random_device myRand;
-		static std::default_random_engine myGen(myRand());
+		static Mersenne myGen(myRand());
 
 		return myDist(myGen);
 	}
@@ -116,7 +113,7 @@ namespace nx
 			myDist.param(std::uniform_real<T>(max, min).param());
 
 		std::random_device myRand;
-		static std::default_random_engine myGen(myRand());
+		static Mersenne myGen(myRand());
 
 		return myDist(myGen);
 	}

@@ -3,9 +3,9 @@ namespace nx
 #define IS_INT std::enable_if_t<std::is_integral_v<T>>
 
 	template<typename T>
-	Rand<T, IS_INT>::Rand(T min, T max) : mDist(min, max), mGen(mRand())
+	Rand<T, IS_INT>::Rand(T min, T max) : mGen(mRand())
 	{
-		Check(min, max);
+		CheckValidity(min, max);
 	}
 
 	template<typename T>
@@ -20,7 +20,7 @@ namespace nx
 	template<typename T>
 	void Rand<T, IS_INT>::SetRange(T min, T max)
 	{
-		Check(min, max);
+		CheckValidity(min, max);
 
 		auto myNew = mDist.param();
 		myNew._Init(min, max);
@@ -29,7 +29,7 @@ namespace nx
 	}
 
 	template<typename T>
-	void Rand<T, IS_INT>::Seed(T value)
+	void Rand<T, IS_INT>::Seed(uint64_t value)
 	{
 		mGen.seed(value);
 	}
@@ -55,7 +55,7 @@ namespace nx
 	template<typename T>
 	T Rand<T, IS_INT>::operator()(T min, T max, bool retain)
 	{
-		Check(min, max);
+		CheckValidity(min, max);
 
 		auto myOldState = mDist.param();
 		auto myNewState = mDist.param();
@@ -78,10 +78,16 @@ namespace nx
 	}
 
 	template<typename T>
-	void Rand<T, IS_INT>::Check(T min, T max)
+	void Rand<T, IS_INT>::CheckValidity(T min, T max)
 	{
 		if (min > max)
-			mDist.param(std::uniform_int<T>(max, min).param());
+		{
+			T temp = min;
+			min = max;
+			max = temp;
+		}
+
+		mDist.param(std::uniform_int<T>(min, max).param());
 	}
 
 	template<typename T>
@@ -90,7 +96,7 @@ namespace nx
 		std::uniform_int_distribution<T> myDist;
 
 		std::random_device myRand;
-		static std::default_random_engine myGen(myRand());
+		static Mersenne myGen(myRand());
 
 		return myDist(myGen);
 	}
@@ -101,7 +107,7 @@ namespace nx
 		std::uniform_int_distribution<T> myDist(static_cast<T>(0), max);
 
 		std::random_device myRand;
-		static std::default_random_engine myGen(myRand());
+		static Mersenne myGen(myRand());
 
 		return myDist(myGen);
 	}
@@ -115,7 +121,7 @@ namespace nx
 			myDist.param(std::uniform_int<T>(max, min).param());
 
 		std::random_device myRand;
-		static std::default_random_engine myGen(myRand());
+		static Mersenne myGen(myRand());
 
 		return myDist(myGen);
 	}

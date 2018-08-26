@@ -127,6 +127,9 @@
     <None Include="RandFloat.inl" />
     <None Include="RandInt.inl" />
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Example.cpp" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
