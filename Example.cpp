@@ -1,8 +1,6 @@
 #include "NXRand.h"
 #include <iostream>
 
-#define Print(x) std::cout << x << "\n"
-
 int main() 
 {
 	nx::fRand myfRand(2.f, 5.f);          // random object that stores floats, in the range 2 to 5
@@ -24,4 +22,6 @@ int main()
 
 	for (int i = 0; i < 25; ++i)
 		std::cout << myObject() << "\n";  // you can get a random value within your range like this
+
+	std::cin.get();
 }

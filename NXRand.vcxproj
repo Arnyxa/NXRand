@@ -119,16 +119,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Incl.h" />
-    <ClInclude Include="SysCheck.h" />
     <ClInclude Include="NXRand.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="RandFloat.inl" />
-    <None Include="RandInt.inl" />
+    <ClInclude Include="sys\Incl.h" />
+    <ClInclude Include="sys\SysCheck.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Example.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="sys\RandFloat.inl" />
+    <None Include="sys\RandInt.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -15,27 +15,27 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="SysCheck.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Incl.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="NXRand.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="RandInt.inl">
+    <ClInclude Include="sys\SysCheck.h">
       <Filter>Source Files</Filter>
-    </None>
-    <None Include="RandFloat.inl">
+    </ClInclude>
+    <ClInclude Include="sys\Incl.h">
       <Filter>Source Files</Filter>
-    </None>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Example.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="sys\RandFloat.inl">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="sys\RandInt.inl">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

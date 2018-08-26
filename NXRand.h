@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Incl.h"
+#include "sys/Incl.h"
 
 namespace nx
 {
@@ -110,5 +110,5 @@ namespace nx
 	using dRand = Rand<double>;
 }
 
-#include "RandInt.inl"
-#include "RandFloat.inl"
+#include "sys/RandInt.inl"
+#include "sys/RandFloat.inl"
