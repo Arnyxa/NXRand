@@ -11,7 +11,7 @@ namespace nx
 	template<typename T>
 	void Rand<T, IS_INT>::ResetRange()
 	{
-		mDist.param(std::uniform_int<T>(static_cast<T>(0), std::numeric_limits<T>::max().param());
+		mDist.param(std::uniform_int<T>(static_cast<T>(0), std::numeric_limits<T>::max()).param());
 	}
 
 	template<typename T>
@@ -21,7 +21,7 @@ namespace nx
 	}
 
 	template<typename T>
-	void Rand<T, IS_INT>::Seed(uint64_t value)
+	void Rand<T, IS_INT>::Seed(unsigned value)
 	{
 		mGen.seed(value);
 	}

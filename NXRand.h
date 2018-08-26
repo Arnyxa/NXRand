@@ -30,7 +30,7 @@ namespace nx
 		// on the distribution object will not be dependent on previous calls to operator().
 		void ResetState();
 
-		void Seed(uint64_t value);
+		void Seed(unsigned value);
 		void Seed(std::seed_seq aSeedSequence);
 
 		std::pair<T, T> GetRange() const;
@@ -75,7 +75,7 @@ namespace nx
 		// on the distribution object will not be dependent on previous calls to operator().
 		void ResetState();
 
-		void Seed(uint64_t value);
+		void Seed(unsigned value);
 		void Seed(std::seed_seq aSeedSequence);
 
 		std::pair<T, T> GetRange() const;
