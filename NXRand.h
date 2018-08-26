@@ -100,7 +100,6 @@ namespace nx
 		std::uniform_real_distribution<T> mDist;
 		std::random_device mRand;
 		Mersenne mGen;
-		std::default
 	};
 }
 
