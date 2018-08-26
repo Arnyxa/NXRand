@@ -1,20 +1,24 @@
-// float
 namespace nx
 {
-	Rand<float>::Rand(float aMin, float aMax) : mDist(aMin, aMax)
+#define IS_FLOAT std::enable_if_t<std::is_floating_point_v<T>>
+
+	template<typename T>
+	Rand<T, IS_FLOAT>::Rand(T aMin, T aMax) : mDist(aMin, aMax)
 	{
 		Check(aMin, aMax);
 	}
 
-	void Rand<float>::Reset()
+	template<typename T>
+	void Rand<T, IS_FLOAT>::Reset()
 	{
 		auto myNew = mDist.param();
-		myNew._Init(0, std::numeric_limits<float>::max());
+		myNew._Init(0, std::numeric_limits::max());
 
 		mDist.param(myNew);
 	}
 
-	void Rand<float>::Reset(float aMin, float aMax)
+	template<typename T>
+	void Rand<T, IS_FLOAT>::Reset(T aMin, T aMax)
 	{
 		Check(aMin, aMax);
 
@@ -24,17 +28,20 @@ namespace nx
 		mDist.param(myNew);
 	}
 
-	void Rand<float>::ResetState()
+	template<typename T>
+	void Rand<T, IS_FLOAT>::ResetState()
 	{
 		mDist.reset();
 	}
 
-	std::pair<float, float> Rand<float>::GetRange() const
+	template<typename T>
+	std::pair<T, T> Rand<T, IS_FLOAT>::GetRange() const
 	{
 		return std::make_pair(mDist.min(), mDist.max());
 	}
 
-	float Rand<float>::operator()(float aMin, float aMax, bool retain = true)
+	template<typename T>
+	T Rand<T, IS_FLOAT>::operator()(T aMin, T aMax, bool retain)
 	{
 		Check(aMin, aMax);
 
@@ -44,7 +51,7 @@ namespace nx
 		myNewState._Init(aMin, aMax);
 		mDist.param(myNewState);
 
-		float myReturn = mDist(mGen);
+		T myReturn = mDist(mGen);
 
 		if (retain)
 			mDist.param(myOldState);
@@ -52,13 +59,17 @@ namespace nx
 		return myReturn;
 	}
 
-	float Rand<float>::operator()()
+	template<typename T>
+	T Rand<T, IS_FLOAT>::operator()()
 	{
 		return mDist(mGen);
 	}
 
-	void Rand<float>::Check(float aMin, float aMax)
+	template<typename T>
+	void Rand<T, IS_FLOAT>::Check(T aMin, T aMax)
 	{
 		assert(aMin <= aMax && "Min value can not be greater than max value.");
 	}
+
+#undef IS_FLOAT
 }

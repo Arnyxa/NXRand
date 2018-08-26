@@ -1,20 +1,24 @@
-// int
 namespace nx
 {
-	Rand<int>::Rand(int aMin, int aMax) : mDist(aMin, aMax)
+#define IS_INT std::enable_if_t<std::is_integral_v<T>>
+
+	template<typename T>
+	Rand<T, IS_INT>::Rand(T aMin, T aMax) : mDist(aMin, aMax)
 	{
 		Check(aMin, aMax);
 	}
 
-	void Rand<int>::Reset()
+	template<typename T>
+	void Rand<T, IS_INT>::Reset()
 	{
 		auto myNew = mDist.param();
-		myNew._Init(0, std::numeric_limits<int>::max());
+		myNew._Init(0, std::numeric_limits::max());
 
 		mDist.param(myNew);
 	}
 
-	void Rand<int>::Reset(int aMin, int aMax)
+	template<typename T>
+	void Rand<T, IS_INT>::Reset(T aMin, T aMax)
 	{
 		Check(aMin, aMax);
 
@@ -24,17 +28,20 @@ namespace nx
 		mDist.param(myNew);
 	}
 
-	void Rand<int>::ResetState()
+	template<typename T>
+	void Rand<T, IS_INT>::ResetState()
 	{
 		mDist.reset();
 	}
 
-	std::pair<int, int> Rand<int>::GetRange() const
+	template<typename T>
+	std::pair<T, T> Rand<T, IS_INT>::GetRange() const
 	{
 		return std::make_pair(mDist.min(), mDist.max());
 	}
 
-	int Rand<int>::operator()(int aMin, int aMax, bool retain = true)
+	template<typename T>
+	T Rand<T, IS_INT>::operator()(T aMin, T aMax, bool retain)
 	{
 		Check(aMin, aMax);
 
@@ -44,7 +51,7 @@ namespace nx
 		myNewState._Init(aMin, aMax);
 		mDist.param(myNewState);
 
-		int myReturn = mDist(mGen);
+		T myReturn = mDist(mGen);
 
 		if (retain)
 			mDist.param(myOldState);
@@ -52,13 +59,17 @@ namespace nx
 		return myReturn;
 	}
 
-	int Rand<int>::operator()()
+	template<typename T>
+	T Rand<T, IS_INT>::operator()()
 	{
 		return mDist(mGen);
 	}
 
-	void Rand<int>::Check(int aMin, int aMax)
+	template<typename T>
+	void Rand<T, IS_INT>::Check(T aMin, T aMax)
 	{
 		assert(aMin <= aMax && "Min value can not be greater than max value.");
 	}
+
+#undef IS_INT
 }

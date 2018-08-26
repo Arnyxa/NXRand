@@ -6,7 +6,7 @@
 
 namespace nx
 {
-	template<typename T>
+	template<typename T, typename = void>
 	class Rand 
 	{ Rand() {} };
 
@@ -14,32 +14,27 @@ namespace nx
 
 namespace nx
 {
-	template<>
-	class Rand<int>
+	template<typename T>
+	class Rand<T, std::enable_if_t<std::is_integral_v<T>>>
 	{
 	public:
-		Rand(int aMin, int aMax) : mDist(aMin, aMax)
-		{
-			Check(aMin, aMax);
-		}
-
-		Rand()
-		{}
+		Rand(T aMin, T aMax);
+		Rand() {}
 
 		void Reset();
-		void Reset(int aMin, int aMax);
+		void Reset(T aMin, T aMax);
 		void ResetState();
 
-		std::pair<int, int> GetRange() const;
+		std::pair<T, T> GetRange() const;
 
-		int operator()(int aMin, int aMax, bool retain = true);
-		int operator()();
-
-	private:
-		void Check(int aMin, int aMax);
+		T operator()(T aMin, T aMax, bool retain = true);
+		T operator()();
 
 	private:
-		std::uniform_int_distribution<int> mDist;
+		void Check(T aMin, T aMax);
+
+	private:
+		std::uniform_int_distribution<T> mDist;
 		std::default_random_engine mGen;
 	};
 }
@@ -48,66 +43,27 @@ namespace nx
 
 namespace nx
 {
-	template<>
-	class Rand<double>
+	template<typename T>
+	class Rand<T, std::enable_if_t<std::is_floating_point_v<T>>>
 	{
 	public:
-		Rand(double aMin, double aMax) : mDist(aMin, aMax)
-		{
-			Check(aMin, aMax);
-		}
-
-		Rand()
-		{}
+		Rand(T aMin, T aMax);
+		Rand() {}
 
 		void Reset();
-		void Reset(double aMin, double aMax);
+		void Reset(T aMin, T aMax);
 		void ResetState();
 
-		std::pair<double, double> GetRange() const;
+		std::pair<T, T> GetRange() const;
 
-		double operator()(double aMin, double aMax, bool retain = true);
-		double operator()();
-
-	private:
-		void Check(double aMin, double aMax);
+		T operator()(T aMin, T aMax, bool retain = true);
+		T operator()();
 
 	private:
-		std::uniform_real_distribution<double> mDist;
-		std::default_random_engine mGen;
-	};
-}
-
-#include "RandDouble.inl"
-
-namespace nx
-{
-	template<>
-	class Rand<float>
-	{
-	public:
-		Rand(float aMin, float aMax) : mDist(aMin, aMax)
-		{
-			Check(aMin, aMax);
-		}
-
-		Rand()
-		{}
-
-		void Reset();
-		void Reset(float aMin, float aMax);
-		void ResetState();
-
-		std::pair<float, float> GetRange() const;
-
-		float operator()(float aMin, float aMax, bool retain = true);
-		float operator()();
+		void Check(T aMin, T aMax);
 
 	private:
-		void Check(float aMin, float aMax);
-
-	private:
-		std::uniform_real_distribution<float> mDist;
+		std::uniform_real_distribution<T> mDist;
 		std::default_random_engine mGen;
 	};
 }
