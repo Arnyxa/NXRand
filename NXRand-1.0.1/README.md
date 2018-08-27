@@ -1,4 +1,24 @@
-#include "include/NXRand.h"
+# NXRand
+
+Small library that abstracts away C++'s random classes and makes them somewhat easier to use.
+
+The primary purpose of NXRand is to have a simple, yet effective way of utilizing the STL's PRNG, without having to go through all the hassle of creating random devices, rng engines, and distribution objects.
+
+This would make it effective for things such as game programming, or smaller objects where simple RNG is all that is required.
+
+The engine used is the Mersenne Twister, which will be the 32-bit or 64-bit version depending on what architecture you're targeting.
+
+The distributions are uniform. Support for additional distributions/random engines may be added in the future,
+if it somehow ends up being requested, though this is pretty unlikely.
+
+## Installation
+NXRand is header-only, so all you need to do is add it to your include files. Make sure to preserve the folder structure (or you'll have to manually path to /sys/). 
+
+If you're using Visual Studio, under your Project Properties go to Configuration Properties -> C/C++ -> General, and add the path to the folder containing NXRand to "Additional Include Directories".
+
+## Usage
+```cpp
+#include "NXRand.h"
 #include <iostream>
 
 int main() 
@@ -25,3 +45,4 @@ int main()
 
 	std::cin.get();
 }
+```

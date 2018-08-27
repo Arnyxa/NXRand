@@ -18,6 +18,17 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Example.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="sys\incl.h" />
+    <ClInclude Include="sys\SysCheck.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="sys\RandFloat.inl" />
+    <None Include="sys\RandInt.inl" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{6E5706F5-593F-432B-9575-90D6CADA55EE}</ProjectGuid>
@@ -118,18 +129,6 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClInclude Include="NXRand.h" />
-    <ClInclude Include="sys\Incl.h" />
-    <ClInclude Include="sys\SysCheck.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Example.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="sys\RandFloat.inl" />
-    <None Include="sys\RandInt.inl" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
