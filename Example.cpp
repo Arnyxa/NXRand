@@ -3,6 +3,9 @@
 
 int main() 
 {
+	std::uniform_int_distribution<int> b;
+	b.param(std::uniform_int_distribution<int>::param_type(0, 5));
+
 	nx::Rand<float> myfRand(2.f, 5.f);    // random object that stores floats, in the range 2 to 5
 	nx::Rand<double> mydRand;             // random object that stores doubles, in the range 0.0 to 1.0 (default)
 	nx::Rand<int> myiRand(12, 54);        // random object that stores ints, range 12~54 (integral default range is 1~100)

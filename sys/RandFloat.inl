@@ -1,56 +1,55 @@
 namespace nx
 {
 	template<typename T>
-	Rand<T, is_float<T>>::Rand(T min, T max) : mGen(mRand())
+	Rand<T, if_float<T>>::Rand(T min, T max) : mGen(mRand())
 	{
 		CheckValidity(min, max);
 	}
 
 	template<typename T>
-	void Rand<T, is_float<T>>::ResetRange()
+	void Rand<T, if_float<T>>::ResetRange()
 	{
-		mDist.param(std::uniform_real<T>(static_cast<T>(0), std::numeric_limits<T>::max()).param());
+		mDist.param(param_real<T>(static_cast<T>(0), std::numeric_limits<T>::max()));
 	}
 
 	template<typename T>
-	void Rand<T, is_float<T>>::SetRange(T min, T max)
+	void Rand<T, if_float<T>>::SetRange(T min, T max)
 	{
 		CheckValidity(min, max);
 	}
 
 	template<typename T>
-	void Rand<T, is_float<T>>::Seed(unsigned value)
+	void Rand<T, if_float<T>>::Seed(unsigned value)
 	{
 		mGen.seed(value);
 	}
 
 	template<typename T>
-	void Rand<T, is_float<T>>::Seed(std::seed_seq aSeedSequence)
+	void Rand<T, if_float<T>>::Seed(std::seed_seq aSeedSequence)
 	{
 		mGen.seed(aSeedSequence);
 	}
 
 	template<typename T>
-	void Rand<T, is_float<T>>::ResetState()
+	void Rand<T, if_float<T>>::ResetState()
 	{
 		mDist.reset();
 	}
 
 	template<typename T>
-	std::pair<T, T> Rand<T, is_float<T>>::GetRange() const
+	std::pair<T, T> Rand<T, if_float<T>>::GetRange() const
 	{
 		return std::make_pair(mDist.min(), mDist.max());
 	}
 
 	template<typename T>
-	T Rand<T, is_float<T>>::operator()(T min, T max, bool retain)
+	T Rand<T, if_float<T>>::operator()(T min, T max, bool retain)
 	{
 		CheckValidity(min, max);
 
 		auto myOldState = mDist.param();
-		auto myNewState = mDist.param();
+		auto myNewState = param_real<T>(min, max);
 
-		myNewState._Init(min, max);
 		mDist.param(myNewState);
 
 		T myReturn = mDist(mGen);
@@ -62,13 +61,13 @@ namespace nx
 	}
 
 	template<typename T>
-	T Rand<T, is_float<T>>::operator()()
+	T Rand<T, if_float<T>>::operator()()
 	{
 		return mDist(mGen);
 	}
 
 	template<typename T>
-	void Rand<T, is_float<T>>::CheckValidity(T min, T max)
+	void Rand<T, if_float<T>>::CheckValidity(T min, T max)
 	{
 		if (min > max)
 		{
@@ -77,11 +76,11 @@ namespace nx
 			max = temp;
 		}
 
-		mDist.param(std::uniform_real<T>(min, max).param());
+		mDist.param(param_real<T>(min, max));
 	}
 
 	template<typename T>
-	T Rand<T, is_float<T>>::Next()
+	T Rand<T, if_float<T>>::Next()
 	{
 		static std::uniform_real_distribution<T> myDist;
 
@@ -92,7 +91,7 @@ namespace nx
 	}
 
 	template<typename T>
-	T Rand<T, is_float<T>>::Next(T max)
+	T Rand<T, if_float<T>>::Next(T max)
 	{
 		static std::uniform_real_distribution<T> myDist(static_cast<T>(0), max);
 
@@ -103,12 +102,12 @@ namespace nx
 	}
 
 	template<typename T>
-	T Rand<T, is_float<T>>::Next(T min, T max)
+	T Rand<T, if_float<T>>::Next(T min, T max)
 	{
 		static std::uniform_real_distribution<T> myDist(min, max);
 
 		if (min > max)
-			myDist.param(std::uniform_real<T>(max, min).param());
+			myDist.param(param_real<T>(max, min));
 
 		static std::random_device myRand;
 		static Mersenne myGen(myRand());

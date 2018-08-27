@@ -17,9 +17,13 @@ namespace nx
 namespace nx
 {
 	template<typename T>
-	using is_float = std::enable_if_t<std::is_floating_point<T>::value>;
+	using if_float = std::enable_if_t<std::is_floating_point<T>::value>;
 	template<typename T>
-	using is_int = std::enable_if_t<std::is_integral<T>::value>;
+	using if_int = std::enable_if_t<std::is_integral<T>::value>;
 	template<typename T>
-	using is_arithmetic = typename std::is_arithmetic<T>::value;
+	using param_int = typename std::uniform_int_distribution<T>::param_type;
+	template<typename T>
+	using param_real = typename std::uniform_real_distribution<T>::param_type;
+	template<typename T>
+	auto is_arithmetic = std::is_arithmetic<T>::value;
 }

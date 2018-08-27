@@ -15,7 +15,7 @@ namespace nx
 namespace nx
 {
 	template<typename T>
-	class Rand<T, is_int<T>>
+	class Rand<T, if_int<T>>
 	{
 	public:
 		Rand(T min, T max);
@@ -61,7 +61,7 @@ namespace nx
 namespace nx
 {
 	template<typename T>
-	class Rand<T, is_float<T>>
+	class Rand<T, if_float<T>>
 	{
 	public:
 		Rand(T min, T max);
