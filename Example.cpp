@@ -4,8 +4,8 @@
 int main() 
 {
 	nx::Rand<float> myfRand(2.f, 5.f);    // random object that stores floats, in the range 2 to 5
-	nx::Rand<double> mydRand;             // random object that stores doubles, in the range 1 to 100 (default)
-	nx::Rand<int> myiRand(12, 54);        // random object that stores ints, range 12~54
+	nx::Rand<double> mydRand;             // random object that stores doubles, in the range 0.0 to 1.0 (default)
+	nx::Rand<int> myiRand(12, 54);        // random object that stores ints, range 12~54 (integral default range is 1~100)
 
 	nx::Rand<unsigned> myUInt(67, 55);    // you can also use other types, as long as they're integral/floating
 	nx::Rand<long double> mySpicy;        // even the spicier types
