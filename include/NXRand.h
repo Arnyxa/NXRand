@@ -103,5 +103,5 @@ namespace nx
 	};
 }
 
-#include "sys/RandInt.inl"
-#include "sys/RandFloat.inl"
+#include "../sys/RandInt.inl"
+#include "../sys/RandFloat.inl"
