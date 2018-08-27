@@ -1,51 +1,52 @@
 namespace nx
 {
-#define IS_FLOAT std::enable_if_t<std::is_floating_point_v<T>>
+	template<typename T>
+	using is_float = std::enable_if_t<std::is_floating_point_v<T>>;
 
 	template<typename T>
-	Rand<T, IS_FLOAT>::Rand(T min, T max) : mGen(mRand())
+	Rand<T, is_float<T>>::Rand(T min, T max) : mGen(mRand())
 	{
 		CheckValidity(min, max);
 	}
 
 	template<typename T>
-	void Rand<T, IS_FLOAT>::ResetRange()
+	void Rand<T, is_float<T>>::ResetRange()
 	{
 		mDist.param(std::uniform_real<T>(static_cast<T>(0), std::numeric_limits<T>::max()).param());
 	}
 
 	template<typename T>
-	void Rand<T, IS_FLOAT>::SetRange(T min, T max)
+	void Rand<T, is_float<T>>::SetRange(T min, T max)
 	{
 		CheckValidity(min, max);
 	}
 
 	template<typename T>
-	void Rand<T, IS_FLOAT>::Seed(unsigned value)
+	void Rand<T, is_float<T>>::Seed(unsigned value)
 	{
 		mGen.seed(value);
 	}
 
 	template<typename T>
-	void Rand<T, IS_FLOAT>::Seed(std::seed_seq aSeedSequence)
+	void Rand<T, is_float<T>>::Seed(std::seed_seq aSeedSequence)
 	{
 		mGen.seed(aSeedSequence);
 	}
 
 	template<typename T>
-	void Rand<T, IS_FLOAT>::ResetState()
+	void Rand<T, is_float<T>>::ResetState()
 	{
 		mDist.reset();
 	}
 
 	template<typename T>
-	std::pair<T, T> Rand<T, IS_FLOAT>::GetRange() const
+	std::pair<T, T> Rand<T, is_float<T>>::GetRange() const
 	{
 		return std::make_pair(mDist.min(), mDist.max());
 	}
 
 	template<typename T>
-	T Rand<T, IS_FLOAT>::operator()(T min, T max, bool retain)
+	T Rand<T, is_float<T>>::operator()(T min, T max, bool retain)
 	{
 		CheckValidity(min, max);
 
@@ -64,13 +65,13 @@ namespace nx
 	}
 
 	template<typename T>
-	T Rand<T, IS_FLOAT>::operator()()
+	T Rand<T, is_float<T>>::operator()()
 	{
 		return mDist(mGen);
 	}
 
 	template<typename T>
-	void Rand<T, IS_FLOAT>::CheckValidity(T min, T max)
+	void Rand<T, is_float<T>>::CheckValidity(T min, T max)
 	{
 		if (min > max)
 		{
@@ -83,7 +84,7 @@ namespace nx
 	}
 
 	template<typename T>
-	T Rand<T, IS_FLOAT>::Next()
+	T Rand<T, is_float<T>>::Next()
 	{
 		std::uniform_real_distribution<T> myDist;
 
@@ -94,7 +95,7 @@ namespace nx
 	}
 
 	template<typename T>
-	T Rand<T, IS_FLOAT>::Next(T max)
+	T Rand<T, is_float<T>>::Next(T max)
 	{
 		std::uniform_real_distribution<T> myDist(static_cast<T>(0), max);
 
@@ -105,7 +106,7 @@ namespace nx
 	}
 
 	template<typename T>
-	T Rand<T, IS_FLOAT>::Next(T min, T max)
+	T Rand<T, is_float<T>>::Next(T min, T max)
 	{
 		std::uniform_real_distribution<T> myDist(min, max);
 
@@ -117,6 +118,4 @@ namespace nx
 
 		return myDist(myGen);
 	}
-
-#undef IS_FLOAT
 }

@@ -1,51 +1,52 @@
 namespace nx
 {
-#define IS_INT std::enable_if_t<std::is_integral_v<T>>
+	template<typename T>
+	using is_int = std::enable_if_t<std::is_integral_v<T>>;
 
 	template<typename T>
-	Rand<T, IS_INT>::Rand(T min, T max) : mGen(mRand())
+	Rand<T, is_int<T>>::Rand(T min, T max) : mGen(mRand())
 	{
 		CheckValidity(min, max);
 	}
 
 	template<typename T>
-	void Rand<T, IS_INT>::ResetRange()
+	void Rand<T, is_int<T>>::ResetRange()
 	{
 		mDist.param(std::uniform_int<T>(static_cast<T>(0), std::numeric_limits<T>::max()).param());
 	}
 
 	template<typename T>
-	void Rand<T, IS_INT>::SetRange(T min, T max)
+	void Rand<T, is_int<T>>::SetRange(T min, T max)
 	{
 		CheckValidity(min, max);
 	}
 
 	template<typename T>
-	void Rand<T, IS_INT>::Seed(unsigned value)
+	void Rand<T, is_int<T>>::Seed(unsigned value)
 	{
 		mGen.seed(value);
 	}
 
 	template<typename T>
-	void Rand<T, IS_INT>::Seed(std::seed_seq aSeedSequence)
+	void Rand<T, is_int<T>>::Seed(std::seed_seq aSeedSequence)
 	{
 		mGen.seed(aSeedSequence);
 	}
 
 	template<typename T>
-	void Rand<T, IS_INT>::ResetState()
+	void Rand<T, is_int<T>>::ResetState()
 	{
 		mDist.reset();
 	}
 
 	template<typename T>
-	std::pair<T, T> Rand<T, IS_INT>::GetRange() const
+	std::pair<T, T> Rand<T, is_int<T>>::GetRange() const
 	{
 		return std::make_pair(mDist.min(), mDist.max());
 	}
 
 	template<typename T>
-	T Rand<T, IS_INT>::operator()(T min, T max, bool retain)
+	T Rand<T, is_int<T>>::operator()(T min, T max, bool retain)
 	{
 		CheckValidity(min, max);
 
@@ -64,13 +65,13 @@ namespace nx
 	}
 
 	template<typename T>
-	T Rand<T, IS_INT>::operator()()
+	T Rand<T, is_int<T>>::operator()()
 	{
 		return mDist(mGen);
 	}
 
 	template<typename T>
-	void Rand<T, IS_INT>::CheckValidity(T min, T max)
+	void Rand<T, is_int<T>>::CheckValidity(T min, T max)
 	{
 		if (min > max)
 		{
@@ -83,7 +84,7 @@ namespace nx
 	}
 
 	template<typename T>
-	T Rand<T, IS_INT>::Next()
+	T Rand<T, is_int<T>>::Next()
 	{
 		std::uniform_int_distribution<T> myDist;
 
@@ -94,7 +95,7 @@ namespace nx
 	}
 
 	template<typename T>
-	T Rand<T, IS_INT>::Next(T max)
+	T Rand<T, is_int<T>>::Next(T max)
 	{
 		std::uniform_int_distribution<T> myDist(static_cast<T>(0), max);
 
@@ -105,7 +106,7 @@ namespace nx
 	}
 
 	template<typename T>
-	T Rand<T, IS_INT>::Next(T min, T max)
+	T Rand<T, is_int<T>>::Next(T min, T max)
 	{
 		std::uniform_int_distribution<T> myDist(min, max);
 
@@ -117,6 +118,4 @@ namespace nx
 
 		return myDist(myGen);
 	}
-
-#undef IS_INT
 }
