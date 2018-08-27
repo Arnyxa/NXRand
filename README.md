@@ -17,9 +17,9 @@ A compiler that supports C++14 is required in order to use this library.
 ## Installation
 NXRand is header-only, so all you need to do is add it to your include files. Make sure to preserve the folder structure (or you'll have to manually path to /sys/). 
 
-If you're using Visual Studio, under your Project Properties go to Configuration Properties -> C/C++ -> General, and add the path to the folder containing NXRand to "Additional Include Directories".
+If you're using Visual Studio, under your Project Properties go to Configuration Properties -> C/C++ -> General, and add the path to the folder containing /include/ and /sys/ (both folders must be present) to "Additional Include Directories".
 
-If you're using gcc, simply add it to your list of includes or paste it into your folder structure.
+If you're using gcc, simply add the NXRand folder path to your list of includes or paste it into your folder structure. Both /include/ and /sys/ must be in the same folder.
 
 ## Usage
 ```cpp
