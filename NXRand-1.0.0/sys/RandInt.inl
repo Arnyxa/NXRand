@@ -1,49 +1,51 @@
 namespace nx
 {
+#define IS_INT std::enable_if_t<std::is_integral_v<T>>
+
 	template<typename T>
-	Rand<T, is_float<T>>::Rand(T min, T max) : mGen(mRand())
+	Rand<T, IS_INT>::Rand(T min, T max) : mGen(mRand())
 	{
 		CheckValidity(min, max);
 	}
 
 	template<typename T>
-	void Rand<T, is_float<T>>::ResetRange()
+	void Rand<T, IS_INT>::ResetRange()
 	{
-		mDist.param(std::uniform_real<T>(static_cast<T>(0), std::numeric_limits<T>::max()).param());
+		mDist.param(std::uniform_int<T>(static_cast<T>(0), std::numeric_limits<T>::max()).param());
 	}
 
 	template<typename T>
-	void Rand<T, is_float<T>>::SetRange(T min, T max)
+	void Rand<T, IS_INT>::SetRange(T min, T max)
 	{
 		CheckValidity(min, max);
 	}
 
 	template<typename T>
-	void Rand<T, is_float<T>>::Seed(unsigned value)
+	void Rand<T, IS_INT>::Seed(unsigned value)
 	{
 		mGen.seed(value);
 	}
 
 	template<typename T>
-	void Rand<T, is_float<T>>::Seed(std::seed_seq aSeedSequence)
+	void Rand<T, IS_INT>::Seed(std::seed_seq aSeedSequence)
 	{
 		mGen.seed(aSeedSequence);
 	}
 
 	template<typename T>
-	void Rand<T, is_float<T>>::ResetState()
+	void Rand<T, IS_INT>::ResetState()
 	{
 		mDist.reset();
 	}
 
 	template<typename T>
-	std::pair<T, T> Rand<T, is_float<T>>::GetRange() const
+	std::pair<T, T> Rand<T, IS_INT>::GetRange() const
 	{
 		return std::make_pair(mDist.min(), mDist.max());
 	}
 
 	template<typename T>
-	T Rand<T, is_float<T>>::operator()(T min, T max, bool retain)
+	T Rand<T, IS_INT>::operator()(T min, T max, bool retain)
 	{
 		CheckValidity(min, max);
 
@@ -62,13 +64,13 @@ namespace nx
 	}
 
 	template<typename T>
-	T Rand<T, is_float<T>>::operator()()
+	T Rand<T, IS_INT>::operator()()
 	{
 		return mDist(mGen);
 	}
 
 	template<typename T>
-	void Rand<T, is_float<T>>::CheckValidity(T min, T max)
+	void Rand<T, IS_INT>::CheckValidity(T min, T max)
 	{
 		if (min > max)
 		{
@@ -77,13 +79,13 @@ namespace nx
 			max = temp;
 		}
 
-		mDist.param(std::uniform_real<T>(min, max).param());
+		mDist.param(std::uniform_int<T>(min, max).param());
 	}
 
 	template<typename T>
-	T Rand<T, is_float<T>>::Next()
+	T Rand<T, IS_INT>::Next()
 	{
-		std::uniform_real_distribution<T> myDist;
+		std::uniform_int_distribution<T> myDist;
 
 		std::random_device myRand;
 		static Mersenne myGen(myRand());
@@ -92,9 +94,9 @@ namespace nx
 	}
 
 	template<typename T>
-	T Rand<T, is_float<T>>::Next(T max)
+	T Rand<T, IS_INT>::Next(T max)
 	{
-		std::uniform_real_distribution<T> myDist(static_cast<T>(0), max);
+		std::uniform_int_distribution<T> myDist(static_cast<T>(0), max);
 
 		std::random_device myRand;
 		static Mersenne myGen(myRand());
@@ -103,16 +105,18 @@ namespace nx
 	}
 
 	template<typename T>
-	T Rand<T, is_float<T>>::Next(T min, T max)
+	T Rand<T, IS_INT>::Next(T min, T max)
 	{
-		std::uniform_real_distribution<T> myDist(min, max);
+		std::uniform_int_distribution<T> myDist(min, max);
 
 		if (min > max)
-			myDist.param(std::uniform_real<T>(max, min).param());
+			myDist.param(std::uniform_int<T>(max, min).param());
 
 		std::random_device myRand;
 		static Mersenne myGen(myRand());
 
 		return myDist(myGen);
 	}
+
+#undef IS_INT
 }

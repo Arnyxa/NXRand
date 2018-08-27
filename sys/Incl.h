@@ -13,3 +13,13 @@ namespace nx
 		using Mersenne = std::mt19937;
 	#endif
 }
+
+namespace nx
+{
+	template<typename T>
+	using is_float = std::enable_if_t<std::is_floating_point<T>::value>;
+	template<typename T>
+	using is_int = std::enable_if_t<std::is_integral<T>::value>;
+	template<typename T>
+	using is_arithmetic = typename std::is_arithmetic<T>::value;
+}

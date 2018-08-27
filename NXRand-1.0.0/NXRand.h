@@ -1,13 +1,13 @@
 #pragma once
 
-#include "Sys/Incl.h"
+#include "sys/Incl.h"
 
 namespace nx
 {
 	template<typename T, typename = void>
 	class Rand 
 	{ 
-		static_assert(is_arithmetic<T>, "Must be an arithmetic type (integral/floating).");
+		static_assert(std::is_arithmetic_v<T>, "Must be an arithmetic type (integral/floating).");
 		Rand() {} 
 	};
 }
@@ -15,7 +15,7 @@ namespace nx
 namespace nx
 {
 	template<typename T>
-	class Rand<T, is_int<T>>
+	class Rand<T, std::enable_if_t<std::is_integral_v<T>>>
 	{
 	public:
 		Rand(T min, T max);
@@ -61,7 +61,7 @@ namespace nx
 namespace nx
 {
 	template<typename T>
-	class Rand<T, is_float<T>>
+	class Rand<T, std::enable_if_t<std::is_floating_point_v<T>>>
 	{
 	public:
 		Rand(T min, T max);

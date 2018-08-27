@@ -1,9 +1,6 @@
 namespace nx
 {
 	template<typename T>
-	using is_int = std::enable_if_t<std::is_integral_v<T>>;
-
-	template<typename T>
 	Rand<T, is_int<T>>::Rand(T min, T max) : mGen(mRand())
 	{
 		CheckValidity(min, max);
