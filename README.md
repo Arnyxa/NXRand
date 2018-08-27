@@ -30,7 +30,7 @@ int main()
 	nx::Rand<unsigned> myUInt(67, 55);    // you can also use other types, as long as they're integral/floating
 	nx::Rand<long double> mySpicy;        // even the spicier types
 
-	nx::Rand<int>::Next();                    // if you don't want to make an object and just want quick rng, you use this
+	nx::Rand<int>::Next();                // if you don't want to make an object and just want quick rng, you use this
 	nx::Rand<long long int>::Next();      // it works with any int/float type
 
 	mySpicy.Seed(52);                     // you can specify your own seeds
