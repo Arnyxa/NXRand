@@ -83,9 +83,9 @@ namespace nx
 	template<typename T>
 	T Rand<T, is_float<T>>::Next()
 	{
-		std::uniform_real_distribution<T> myDist;
+		static std::uniform_real_distribution<T> myDist;
 
-		std::random_device myRand;
+		static std::random_device myRand;
 		static Mersenne myGen(myRand());
 
 		return myDist(myGen);
@@ -94,9 +94,9 @@ namespace nx
 	template<typename T>
 	T Rand<T, is_float<T>>::Next(T max)
 	{
-		std::uniform_real_distribution<T> myDist(static_cast<T>(0), max);
+		static std::uniform_real_distribution<T> myDist(static_cast<T>(0), max);
 
-		std::random_device myRand;
+		static std::random_device myRand;
 		static Mersenne myGen(myRand());
 
 		return myDist(myGen);
@@ -105,12 +105,12 @@ namespace nx
 	template<typename T>
 	T Rand<T, is_float<T>>::Next(T min, T max)
 	{
-		std::uniform_real_distribution<T> myDist(min, max);
+		static std::uniform_real_distribution<T> myDist(min, max);
 
 		if (min > max)
 			myDist.param(std::uniform_real<T>(max, min).param());
 
-		std::random_device myRand;
+		static std::random_device myRand;
 		static Mersenne myGen(myRand());
 
 		return myDist(myGen);

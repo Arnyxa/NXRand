@@ -22,6 +22,7 @@
     <ClCompile Include="Example.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\NXRand.h" />
     <ClInclude Include="sys\incl.h" />
     <ClInclude Include="sys\SysCheck.h" />
   </ItemGroup>

@@ -103,12 +103,5 @@ namespace nx
 	};
 }
 
-namespace nx
-{
-	using iRand = Rand<int>;
-	using fRand = Rand<float>;
-	using dRand = Rand<double>;
-}
-
 #include "sys/RandInt.inl"
 #include "sys/RandFloat.inl"
