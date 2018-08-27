@@ -20,13 +20,13 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="sys\incl.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="sys\SysCheck.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="include\NXRand.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sys\include.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
