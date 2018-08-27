@@ -11,10 +11,15 @@ The engine used is the Mersenne Twister, which will be the 32-bit or 64-bit vers
 The distributions are uniform. Support for additional distributions/random engines may be added in the future,
 if it somehow ends up being requested, though this is pretty unlikely.
 
+## Requirements
+A compiler that supports C++14 is required in order to use this library.
+
 ## Installation
 NXRand is header-only, so all you need to do is add it to your include files. Make sure to preserve the folder structure (or you'll have to manually path to /sys/). 
 
 If you're using Visual Studio, under your Project Properties go to Configuration Properties -> C/C++ -> General, and add the path to the folder containing NXRand to "Additional Include Directories".
+
+If you're using gcc, simply add it to your list of includes or paste it into your folder structure.
 
 ## Usage
 ```cpp
