@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../sys/include.h"
+#include "../sys/incl.h"
 
 namespace nx
 {
