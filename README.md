@@ -52,8 +52,7 @@ int main()
 	mySpicy.Seed(52);                     // you can specify your own seeds
 	myiRand.ResetRange();                 // resets range to default (1~100)
 	myfRand.GetRange();                   // range is returned as a pair of values, accessed through pair.first/pair.second
-	mydRand.ResetState();                 // can also reset the internal state of the distribution 
-					      // (it stops caring what number came last)
+	mydRand.ResetState();                 // can also reset the internal state of the distribution (it stops caring what number came last)
 	myBools.SetProbability(25.7);         // boolean probabilities are modulated to between 0.0 and 1.0 for any value above 1
 
 	nx::Rand<int> myObject(100, 200);
