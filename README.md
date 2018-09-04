@@ -35,17 +35,46 @@ int main()
 	nx::Rand<unsigned> myUInt(67, 55);    // you can also use other types, as long as they're integral/floating
 	nx::Rand<long double> mySpicy;        // even the spicier types
 
+	nx::Rand<bool> myBools(0.7);          // booleans use a range of 0.0 to 1.0 to determine the probability of something being true
+	nx::Rand<bool> myBool;                // the default probability is 0.5, so a roughly equal chance for either
+
 	nx::Rand<int>::Next();                // if you don't want to make an object and just want quick rng, you use this
-	nx::Rand<long long int>::Next();      // it works with any int/float type
+	nx::Rand<long double>::Next();        // it works with any int/float type
+	nx::Rand<bool>::Next();               // or bool
+
+	nx::Rand<int>::Next(18);              // you can specify the max value (min will default to 0)
+	nx::Rand<double>::Next(14.2, 100.85); // or you can specify a min and a max value
+
+	nx::Rand<bool>::Next(0.7);            // for booleans, you can specify the probability of the outcome being 'true' instead
+	nx::Rand<bool>::Next();               // do keep in mind this probability stays the same for subsequent calls
+					      // you would have to manually set it back to the default 0.5
 
 	mySpicy.Seed(52);                     // you can specify your own seeds
 	myiRand.ResetRange();                 // resets range to default (1~100)
 	myfRand.GetRange();                   // range is returned as a pair of values, accessed through pair.first/pair.second
-	mydRand.ResetState();                 // can also reset the internal state of the distribution (it stops caring what number came last)
+	mydRand.ResetState();                 // can also reset the internal state of the distribution 
+					      // (it stops caring what number came last)
+	myBools.SetProbability(25.7);         // boolean probabilities are modulated to between 0.0 and 1.0 for any value above 1
 
 	nx::Rand<int> myObject(100, 200);
 
-	for (int i = 0; i < 25; ++i)
+	for (unsigned i = 0; i < 25; ++i)
 		std::cout << myObject() << "\n";  // you can get a random value within your range like this
+
+	unsigned count = 0;
+	unsigned total = 100;
+	for (unsigned i = 0; i < total; ++i)  // booleans work much the same
+	{
+		bool e = myBools();
+
+		if (e)
+			++count;
+
+		std::cout << e << " ";            
+	}
+
+	std::cout << "\n" << count << " True\n" 
+		<< total - count << " False";	
+
 }
 ```
