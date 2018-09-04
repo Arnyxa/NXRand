@@ -27,6 +27,7 @@
     <ClInclude Include="sys\SysCheck.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="sys\RandBool.inl" />
     <None Include="sys\RandFloat.inl" />
     <None Include="sys\RandInt.inl" />
   </ItemGroup>

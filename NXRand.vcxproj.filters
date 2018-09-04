@@ -37,5 +37,8 @@
     <None Include="sys\RandInt.inl">
       <Filter>Source Files</Filter>
     </None>
+    <None Include="sys\RandBool.inl">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
 </Project>
